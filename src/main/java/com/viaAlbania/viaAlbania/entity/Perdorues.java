@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "PERDORUESIT")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Perdorues {
 
     @Id
