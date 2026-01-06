@@ -32,11 +32,14 @@ public class Lokacion {
     @Column(name = "ADRESA")
     private String adresa;
 
+    @Column(name = "AKTIV")
+    private boolean aktiv = true;
+
     public Lokacion() {
     }
 
     public Lokacion(int lokacionId, String emri, String pershkrimi, Double latitude,
-            Double longitude, String tipi, String orari, String adresa) {
+            Double longitude, String tipi, String orari, String adresa,boolean aktiv) {
         this.lokacionId = lokacionId;
         this.emri = emri;
         this.pershkrimi = pershkrimi;
@@ -45,6 +48,7 @@ public class Lokacion {
         this.tipi = tipi;
         this.orari = orari;
         this.adresa = adresa;
+        this.aktiv=aktiv;
     }
 
     public int getLokacionId() {
@@ -109,5 +113,14 @@ public class Lokacion {
 
     public void setAdresa(String adresa) {
         this.adresa = adresa;
+    }
+
+
+    public boolean isAktiv() {
+        return aktiv;
+    }
+
+    public void setAktiv(boolean aktiv) {
+        this.aktiv = aktiv;
     }
 }

@@ -41,11 +41,11 @@ public class Biznes extends Lokacion {
 
     public Biznes(
             int lokacionId, String emri, String pershkrimi, Double latitude, Double longitude,
-            String tipi, String orari, String adresa, int biznesId, Perdorues perdorues,
+            String tipi, String orari, boolean aktiv, String adresa, int biznesId, Perdorues perdorues,
             String kategoria, String pershkrimShtese, String disponueshmeri, Admin aprovuarNga,
             Double cmimMesatar, LocalDate dataKrijimit
     ) {
-        super(lokacionId, emri, pershkrimi, latitude, longitude, tipi, orari, adresa);
+        super(lokacionId, emri, pershkrimi, latitude, longitude, tipi, orari, adresa, aktiv);
         this.biznesId = biznesId;
         this.perdorues = perdorues;
         this.kategoria = kategoria;

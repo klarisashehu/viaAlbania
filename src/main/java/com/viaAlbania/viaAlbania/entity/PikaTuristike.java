@@ -33,10 +33,10 @@ public class PikaTuristike extends Lokacion {
     }
 
     public PikaTuristike(int lokacionId, String emri, String pershkrimi, Double latitude,
-            Double longitude, String tipi, String orari, String adresa,
+            Double longitude, String tipi, String orari, boolean aktiv, String adresa,
             int pikeTuristikeId, String kategoria, Double cmimi,
             String bashkia, PergjegjesLokal pergjegjesLokal, LocalDate dataKrijimit) {
-        super(lokacionId, emri, pershkrimi, latitude, longitude, tipi, orari, adresa);
+        super(lokacionId, emri, pershkrimi, latitude, longitude, tipi, orari, adresa, aktiv);
         this.pikeTuristikeId = pikeTuristikeId;
         this.kategoria = kategoria;
         this.cmimi = cmimi;
