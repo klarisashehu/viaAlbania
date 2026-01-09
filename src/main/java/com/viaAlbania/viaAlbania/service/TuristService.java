@@ -50,8 +50,4 @@ public class TuristService {
         turist.setBuxhetiMax(max);
         turistRep.save(turist);
     }
-
-    public String gjeneroRaport(Turist turist) {
-        return "Raport\n Emri: " + turist.getEmer() + "\nPreferencat=" + turist.getPreferencat();
-    }
 }

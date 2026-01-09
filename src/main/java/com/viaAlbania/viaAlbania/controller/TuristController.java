@@ -51,11 +51,4 @@ public class TuristController {
         return "Buxheti u ruajt me sukses";
     }
 
-
-    @GetMapping("/raport/{turistId}")
-    public String gjeneroRaport(@PathVariable int turistId) {
-        Turist turist = new Turist();
-        turist.setPerdoruesId(turistId);
-        return turistService.gjeneroRaport(turist);
-    }
 }
