@@ -53,6 +53,5 @@ public class TuristService {
 
     public String gjeneroRaport(Turist turist) {
         return "Raport\n Emri: " + turist.getEmer() + "\nPreferencat=" + turist.getPreferencat();
-        //SHTO TE DHENA TE TJ
     }
 }

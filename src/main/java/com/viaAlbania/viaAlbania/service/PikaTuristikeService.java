@@ -15,18 +15,13 @@ public class PikaTuristikeService {
     @Autowired
     private PikaTuristikeRep pikaTuristikeRep;
 
-    // ========================
-    // KRIJO
-    // ========================
+
     public PikaTuristike krijo(PikaTuristike pika) {
         pika.setAktiv(true);
         pika.setDataKrijimit(LocalDate.now());
         return pikaTuristikeRep.save(pika);
     }
 
-    // ========================
-    // PERDITESO TE DHENAT
-    // ========================
     public PikaTuristike perditesoTeDhenat(int id, PikaTuristike updated) {
         Optional<PikaTuristike> opt = pikaTuristikeRep.findById(id);
         if (opt.isPresent()) {
@@ -46,9 +41,6 @@ public class PikaTuristikeService {
         return null;
     }
 
-    // ========================
-    // CAKTIVIZO
-    // ========================
     public PikaTuristike caktivizo(int id) {
         Optional<PikaTuristike> opt = pikaTuristikeRep.findById(id);
         if (opt.isPresent()) {
@@ -59,9 +51,6 @@ public class PikaTuristikeService {
         return null;
     }
 
-    // ========================
-    // VENDOS CMIM
-    // ========================
     public PikaTuristike vendosCmim(int id, Double cmim) {
         Optional<PikaTuristike> opt = pikaTuristikeRep.findById(id);
         if (opt.isPresent()) {
@@ -72,9 +61,6 @@ public class PikaTuristikeService {
         return null;
     }
 
-    // ========================
-    // LISTO TE GJITHE
-    // ========================
     public List<PikaTuristike> merrTeGjitha() {
         return pikaTuristikeRep.findAll();
     }

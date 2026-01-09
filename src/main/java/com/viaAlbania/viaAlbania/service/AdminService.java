@@ -47,8 +47,7 @@ public class AdminService {
 
 
     public boolean aprovoBiznes(int biznesId) {
-        // këtu normalisht do përdorej BiznesRepository
-        // shembull logjik
+
         System.out.println("Biznesi me ID " + biznesId + " u aprovua nga admini.");
         return true;
     }

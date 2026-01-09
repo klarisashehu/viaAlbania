@@ -12,26 +12,17 @@ public class LokacionController {
     @Autowired
     private LokacionService lokacionService;
 
-    // ========================
-    // KRIJO
-    // ========================
     @PostMapping("/krijo")
     public Lokacion krijo(@RequestBody Lokacion lokacion) {
         return lokacionService.krijo(lokacion);
     }
 
-    // ========================
-    // PERDITESO TE DHENAT
-    // ========================
     @PutMapping("/perditeso/{id}")
     public Lokacion perditeso(@PathVariable int id,
                               @RequestBody Lokacion lokacion) {
         return lokacionService.perditesoTeDhenat(id, lokacion);
     }
 
-    // ========================
-    // CAKTIVIZO
-    // ========================
     @PutMapping("/caktivizo/{id}")
     public Lokacion caktivizo(@PathVariable int id) {
         return lokacionService.caktivizo(id);
