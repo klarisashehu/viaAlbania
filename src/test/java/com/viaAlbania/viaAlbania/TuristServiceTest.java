@@ -41,7 +41,6 @@ class TuristServiceTest {
         turist.setBuxhetiMax(500.0);
     }
 
-    // ---------------- LOGIN ----------------
 
     @Test
     void regjistrohu_success() {
@@ -79,8 +78,6 @@ class TuristServiceTest {
         assertFalse(result.isPresent());
     }
 
-    // ---------------- SIGN UP ----------------
-
     @Test
     void identifikohu_success() {
         when(perdoruesService.identifikohu(any(Turist.class)))
@@ -92,7 +89,6 @@ class TuristServiceTest {
         assertEquals("turist@test.com", result.getEmail());
     }
 
-    // ---------------- UPDATE DATA ----------------
 
     @Test
     void perditesoTeDhena_success() {
