@@ -32,7 +32,6 @@ class PerdoruesServiceTest {
     @BeforeEach
     void setUp() {
         encoder = new BCryptPasswordEncoder();
-
         perdorues = new Perdorues();
         perdorues.setEmail("test@test.com");
         perdorues.setFjalkalimi(encoder.encode("password123"));
@@ -45,8 +44,7 @@ class PerdoruesServiceTest {
         when(perdoruesRep.findByEmail("test@test.com"))
                 .thenReturn(Optional.of(perdorues));
 
-        Optional<Perdorues> result =
-                perdoruesService.regjistrohu("test@test.com", "password123");
+        Optional<Perdorues> result = perdoruesService.regjistrohu("test@test.com", "password123");
 
         assertTrue(result.isPresent());
         assertEquals("test@test.com", result.get().getEmail());
@@ -57,8 +55,7 @@ class PerdoruesServiceTest {
         when(perdoruesRep.findByEmail("test@test.com"))
                 .thenReturn(Optional.of(perdorues));
 
-        Optional<Perdorues> result =
-                perdoruesService.regjistrohu("test@test.com", "gabim");
+        Optional<Perdorues> result = perdoruesService.regjistrohu("test@test.com", "gabim");
 
         assertFalse(result.isPresent());
     }
@@ -92,8 +89,7 @@ class PerdoruesServiceTest {
         updated.setEmail("updated@test.com");
         updated.setFjalkalimi("newPassword");
 
-        Perdorues result =
-                perdoruesService.perditesoTeDhena(1, updated);
+        Perdorues result = perdoruesService.perditesoTeDhena(1, updated);
 
         assertEquals("Updated", result.getEmer());
         assertEquals("Name", result.getMbiemer());
@@ -106,10 +102,8 @@ class PerdoruesServiceTest {
         when(perdoruesRep.findById(99))
                 .thenReturn(Optional.empty());
 
-        Perdorues result =
-                perdoruesService.perditesoTeDhena(99, new Perdorues());
+        Perdorues result = perdoruesService.perditesoTeDhena(99, new Perdorues());
 
         assertNull(result);
     }
 }
-

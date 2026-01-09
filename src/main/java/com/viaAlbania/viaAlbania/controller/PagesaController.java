@@ -22,13 +22,14 @@ public class PagesaController {
 
     @PutMapping("/proceso/{id}")
     public Pagesa procesoPagesen(@PathVariable int id,
-                                 @RequestParam String statusi) {
-        return pagesaService.procesoPagesen(id, statusi);
+                                 @RequestParam String tipiPageses) {
+        return pagesaService.procesoPagesen(id, tipiPageses);
     }
 
     @GetMapping("/fature/{id}")
-    public String gjeneroFaturen(@PathVariable int id) {
-        return pagesaService.gjeneroFaturen(id);
+    public String gjeneroFaturen(@PathVariable int id,
+                                 @RequestParam String tipiPageses) {
+        return pagesaService.gjeneroFaturen(id, tipiPageses);
     }
 
     @GetMapping

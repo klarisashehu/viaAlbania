@@ -4,8 +4,8 @@ import com.viaAlbania.viaAlbania.entity.AbonimeBiznesi;
 import com.viaAlbania.viaAlbania.repository.AbonimeBiznesiRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,16 +14,19 @@ public class AbonimeBiznesiService {
     @Autowired
     private AbonimeBiznesiRep rep;
 
+    @Autowired
+    private PagesaService pagesaService;
+
     public AbonimeBiznesi ruajAbonimin(AbonimeBiznesi abonim) {
         return rep.save(abonim);
     }
 
-    public AbonimeBiznesi procesoPagesen(int abonimiId, String statusi) {
+    public AbonimeBiznesi procesoPagesen(int abonimiId) {
         Optional<AbonimeBiznesi> opt = rep.findById(abonimiId);
         if (opt.isPresent()) {
             AbonimeBiznesi abonim = opt.get();
             if (abonim.getPagesa() != null) {
-                abonim.getPagesa().setStatusi(statusi);
+                pagesaService.procesoPagesen(abonim.getPagesa().getPagesaId(), "ABONIM");
             }
             return rep.save(abonim);
         }
@@ -34,14 +37,9 @@ public class AbonimeBiznesiService {
         Optional<AbonimeBiznesi> opt = rep.findById(abonimiId);
         if (opt.isPresent()) {
             AbonimeBiznesi abonim = opt.get();
-            return "Fature Abonimi Biznesi\n" +
-                    "Abonimi ID: " + abonim.getAbonimiId() + "\n" +
-                    "Biznes: " + (abonim.getBiznes() != null ? abonim.getBiznes().getEmri() : "N/A") + "\n" +
-                    "Pagesa ID: " + (abonim.getPagesa() != null ? abonim.getPagesa().getPagesaId() : "N/A") + "\n" +
-                    "Shuma: " + (abonim.getPagesa() != null ? abonim.getPagesa().getShuma() : "N/A") + "\n" +
-                    "Statusi: " + (abonim.getPagesa() != null ? abonim.getPagesa().getStatusi() : "N/A") + "\n" +
-                    "Muaji: " + abonim.getMuaji() + "\n" +
-                    "Aktiv: " + abonim.getAktiv();
+            if (abonim.getPagesa() != null) {
+                return pagesaService.gjeneroFaturen(abonim.getPagesa().getPagesaId(), "ABONIM");
+            }
         }
         return "Abonimi nuk u gjet";
     }
@@ -59,9 +57,8 @@ public class AbonimeBiznesiService {
     public Optional<AbonimeBiznesi> merrAbonimin(int abonimiId) {
         return rep.findById(abonimiId);
     }
+
     public List<AbonimeBiznesi> merrAbonimeSipasBiznesit(int biznesId) {
         return rep.findByBiznes_BiznesId(biznesId);
     }
-
 }
-

@@ -22,25 +22,21 @@ public class PagesaPerItinerarController {
     }
 
     @PutMapping("/proceso")
-    public PagesaPerItinerar procesoPages(@RequestParam int pagesaId,
-                                          @RequestParam int itinerarId,
-                                          @RequestParam int turistId,
-                                          @RequestParam String statusi) {
+    public PagesaPerItinerar procesoPages(@RequestParam int itinerarId,
+                                          @RequestParam int turistId) {
         PagesaPerItinerarId id = new PagesaPerItinerarId(itinerarId, turistId);
-        return service.procesoPages(id, statusi);
+        return service.procesoPages(id);
     }
 
     @GetMapping("/fature")
-    public String gjeneroFaturen(@RequestParam int pagesaId,
-                                 @RequestParam int itinerarId,
+    public String gjeneroFaturen(@RequestParam int itinerarId,
                                  @RequestParam int turistId) {
         PagesaPerItinerarId id = new PagesaPerItinerarId(itinerarId, turistId);
         return service.gjeneroFaturen(id);
     }
 
     @PutMapping("/zgjidhLloji")
-    public PagesaPerItinerar zgjidhLlojinESherbimit(@RequestParam int pagesaId,
-                                                    @RequestParam int itinerarId,
+    public PagesaPerItinerar zgjidhLlojinESherbimit(@RequestParam int itinerarId,
                                                     @RequestParam int turistId,
                                                     @RequestParam String lloji) {
         PagesaPerItinerarId id = new PagesaPerItinerarId(itinerarId, turistId);
@@ -48,8 +44,7 @@ public class PagesaPerItinerarController {
     }
 
     @GetMapping("/verifiko")
-    public Optional<PagesaPerItinerar> verifikoPagesen(@RequestParam int pagesaId,
-                                                       @RequestParam int itinerarId,
+    public Optional<PagesaPerItinerar> verifikoPagesen(@RequestParam int itinerarId,
                                                        @RequestParam int turistId) {
         PagesaPerItinerarId id = new PagesaPerItinerarId(itinerarId, turistId);
         return service.verifikoPagesen(id);

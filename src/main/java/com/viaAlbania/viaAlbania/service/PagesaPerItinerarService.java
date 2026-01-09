@@ -15,15 +15,18 @@ public class PagesaPerItinerarService {
     @Autowired
     private PagesaPerItinerarRep rep;
 
+    @Autowired
+    private PagesaService pagesaService;
+
     public PagesaPerItinerar ruaj(PagesaPerItinerar ppi) {
         return rep.save(ppi);
     }
 
-    public PagesaPerItinerar procesoPages(PagesaPerItinerarId id, String statusi) {
+    public PagesaPerItinerar procesoPages(PagesaPerItinerarId id) {
         Optional<PagesaPerItinerar> opt = rep.findById(id);
         if (opt.isPresent()) {
             PagesaPerItinerar ppi = opt.get();
-            ppi.getPagesa().setStatusi(statusi);
+            pagesaService.procesoPagesen(ppi.getPagesa().getPagesaId(), "ITINERAR");
             return rep.save(ppi);
         }
         return null;
@@ -33,13 +36,7 @@ public class PagesaPerItinerarService {
         Optional<PagesaPerItinerar> opt = rep.findById(id);
         if (opt.isPresent()) {
             PagesaPerItinerar ppi = opt.get();
-            return "Fature PagesaPerItinerar\n" +
-                    "Turist: " + ppi.getTurist().getEmer() + "\n" +
-                    "Itinerar ID: " + ppi.getItinerar().getItinerarId() + "\n" +
-                    "Pagesa ID: " + ppi.getPagesa().getPagesaId() + "\n" +
-                    "Shuma: " + ppi.getPagesa().getShuma() + "\n" +
-                    "Statusi: " + ppi.getPagesa().getStatusi() + "\n" +
-                    "Lloji Sherbimit: " + ppi.getLlojiSherbimit();
+            return pagesaService.gjeneroFaturen(ppi.getPagesa().getPagesaId(), "ITINERAR");
         }
         return "Pagesa per itinerar nuk u gjet";
     }
