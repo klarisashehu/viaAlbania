@@ -32,7 +32,6 @@ class FeedbackServiceTest {
     void setUp() {
         feedback = new Feedback();
         feedback.setFeedbackId(1);
-        feedback.setKoment("Shume mire");
     }
 
     @Test
@@ -42,7 +41,7 @@ class FeedbackServiceTest {
         Feedback result = feedbackService.shtoFeedback(feedback);
 
         assertNotNull(result);
-        assertEquals("Shume mire", result.getKoment());
+        assertEquals("Shume mire", result.getVleresimi());
     }
 
     @Test
@@ -74,7 +73,7 @@ class FeedbackServiceTest {
         List<Feedback> result = feedbackService.shikoFeedbackPerItinerar(1);
 
         assertEquals(1, result.size());
-        assertEquals("Shume mire", result.get(0).getKoment());
+        assertEquals("Shume mire", result.get(0).getVleresimi());
     }
 
     @Test
@@ -87,6 +86,6 @@ class FeedbackServiceTest {
         List<Feedback> result = feedbackService.shikoFeedbackPerTurist(1);
 
         assertEquals(1, result.size());
-        assertEquals("Shume mire", result.get(0).getKoment());
+        assertEquals("Shume mire", result.get(0).getVleresimi());
     }
 }

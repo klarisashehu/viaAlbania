@@ -60,7 +60,7 @@ class PikaPerItinerarServiceTest {
 
         assertNotNull(result);
         assertEquals(1, result.getRendi());
-        assertFalse(result.isCheckin());
+        assertFalse(result.getCheckin());
     }
 
     @Test
@@ -92,7 +92,7 @@ class PikaPerItinerarServiceTest {
         PikaPerItinerar result = service.bejCheckIn(itinerar, lokacion);
 
         assertNotNull(result);
-        assertTrue(result.isCheckin());
+        assertTrue(result.getCheckin());
         assertNotNull(result.getCheckinTime());
     }
 

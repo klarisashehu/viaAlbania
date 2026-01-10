@@ -76,7 +76,7 @@ class AdminServiceTest {
         assertNotNull(saved.getFjalkalimi());
         assertNotEquals("plainPass", saved.getFjalkalimi());
         assertEquals(LocalDate.now(), saved.getDataKrijimit());
-        assertFalse(saved.getAktiv());
+        assertFalse(saved.isAktiv());
     }
 
     @Test
@@ -86,7 +86,7 @@ class AdminServiceTest {
 
         Admin result = adminService.aktivizoAdmin(1);
 
-        assertTrue(result.getAktiv());
+        assertTrue(result.isAktiv());
     }
 
     @Test
@@ -109,7 +109,7 @@ class AdminServiceTest {
         boolean result = adminService.aprovoBiznes(1);
 
         assertTrue(result);
-        assertTrue(b.getAktiv());
+        assertTrue(b.isAktiv());
     }
 
     @Test

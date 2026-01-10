@@ -36,7 +36,6 @@ class LinkJashtemServiceTest {
         biznes.setBiznesId(1);
 
         link = new LinkJashtem();
-        link.setLinkJashtemId(1);
         link.setLink("https://example.com");
         link.setTipi("Website");
         link.setBiznes(biznes);

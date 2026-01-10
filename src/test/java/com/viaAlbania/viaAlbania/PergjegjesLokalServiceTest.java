@@ -44,7 +44,6 @@ class PergjegjesLokalServiceTest {
         lokal.setEmer("Lokal Test");
 
         pika = new PikaTuristike();
-        pika.setPikaId(1);
         pika.setEmri("Parku Kombetar");
     }
 
