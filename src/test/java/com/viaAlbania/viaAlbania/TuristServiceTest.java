@@ -20,109 +20,104 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class TuristServiceTest {
 
-    @Mock
-    private TuristRep turistRep;
+        @Mock
+        private TuristRep turistRep;
 
-    @Mock
-    private PerdoruesService perdoruesService;
+        @Mock
+        private PerdoruesService perdoruesService;
 
-    @InjectMocks
-    private TuristService turistService;
+        @InjectMocks
+        private TuristService turistService;
 
-    private Turist turist;
+        private Turist turist;
 
-    @BeforeEach
-    void setUp() {
-        turist = new Turist();
-        turist.setEmail("turist@test.com");
-        turist.setFjalkalimi("encodedPass");
-        turist.setPreferencat("det, mal");
-        turist.setBuxhetiMin(100.0);
-        turist.setBuxhetiMax(500.0);
-    }
+        @BeforeEach
+        void setUp() {
+                turist = new Turist();
+                turist.setEmail("turist@test.com");
+                turist.setFjalkalimi("encodedPass");
+                turist.setPreferencat("det, mal");
+                turist.setBuxhetiMin(100.0);
+                turist.setBuxhetiMax(500.0);
+        }
 
+        @Test
+        void regjistrohu_success() {
+                when(perdoruesService.regjistrohu("turist@test.com", "1234"))
+                                .thenReturn(Optional.of(turist));
 
-    @Test
-    void regjistrohu_success() {
-        when(perdoruesService.regjistrohu("turist@test.com", "1234"))
-                .thenReturn(Optional.of(turist));
+                Optional<Turist> result = turistService.regjitrohu("turist@test.com", "1234");
 
-        Optional<Turist> result =
-                turistService.regjitrohu("turist@test.com", "1234");
+                assertTrue(result.isPresent());
+                assertEquals("turist@test.com", result.get().getEmail());
+        }
 
-        assertTrue(result.isPresent());
-        assertEquals("turist@test.com", result.get().getEmail());
-    }
+        @Test
+        void regjistrohu_fail_notTurist() {
+                Perdorues user = new Perdorues();
 
-    @Test
-    void regjistrohu_fail_notTurist() {
-        Perdorues user = new Perdorues();
+                when(perdoruesService.regjistrohu("user@test.com", "1234"))
+                                .thenReturn(Optional.of(user));
 
-        when(perdoruesService.regjistrohu("user@test.com", "1234"))
-                .thenReturn(Optional.of(user));
+                Optional<Turist> result = turistService.regjitrohu("user@test.com", "1234");
 
-        Optional<Turist> result =
-                turistService.regjitrohu("user@test.com", "1234");
+                assertFalse(result.isPresent());
+        }
 
-        assertFalse(result.isPresent());
-    }
+        @Test
+        void regjistrohu_fail_userNotFound() {
+                when(perdoruesService.regjistrohu("x@test.com", "1234"))
+                                .thenReturn(Optional.empty());
 
-    @Test
-    void regjistrohu_fail_userNotFound() {
-        when(perdoruesService.regjistrohu("x@test.com", "1234"))
-                .thenReturn(Optional.empty());
+                Optional<Turist> result = turistService.regjitrohu("x@test.com", "1234");
 
-        Optional<Turist> result =
-                turistService.regjitrohu("x@test.com", "1234");
+                assertFalse(result.isPresent());
+        }
 
-        assertFalse(result.isPresent());
-    }
+        @Test
+        void identifikohu_success() {
+                when(perdoruesService.identifikohu(any(Turist.class)))
+                                .thenReturn(turist);
 
-    @Test
-    void identifikohu_success() {
-        when(perdoruesService.identifikohu(any(Turist.class)))
-                .thenReturn(turist);
+                Turist result = turistService.identifikohu(turist);
 
-        Turist result = turistService.identifikohu(turist);
+                assertNotNull(result);
+                assertEquals("turist@test.com", result.getEmail());
+        }
 
-        assertNotNull(result);
-        assertEquals("turist@test.com", result.getEmail());
-    }
+        @Test
+        void perditesoTeDhena_success() {
+                turist.setPerdoruesId(1);
 
+                when(perdoruesService.perditesoTeDhena(eq(1), any(Turist.class)))
+                                .thenReturn(turist);
 
-    @Test
-    void perditesoTeDhena_success() {
-        turist.setPerdoruesId(1);
+                Turist result = turistService.perditesoTeDhena(turist);
 
-        when(perdoruesService.perditesoTeDhena(eq(1), any(Turist.class)))
-                .thenReturn(turist);
+                assertNotNull(result);
+                assertEquals("turist@test.com", result.getEmail());
+        }
 
-        Turist result = turistService.perditesoTeDhena(turist);
+        @Test
+        void selektoPreferenca_success() {
+                when(turistRep.save(any(Turist.class)))
+                                .thenReturn(turist);
 
-        assertNotNull(result);
-        assertEquals("turist@test.com", result.getEmail());
-    }
+                turistService.selektoPreferenca(turist, "mal, qytet");
 
-    @Test
-    void selektoPreferenca_success() {
-        when(turistRep.save(any(Turist.class)))
-                .thenReturn(turist);
+                assertEquals("mal, qytet", turist.getPreferencat());
+                verify(turistRep, times(1)).save(turist);
+        }
 
-        turistService.selektoPreferenca(turist, "mal, qytet");
+        @Test
+        void zgjidhBuxhet_success() {
+                when(turistRep.save(any(Turist.class)))
+                                .thenReturn(turist);
 
-        assertEquals("mal, qytet", turist.getPreferencat());
-        verify(turistRep, times(1)).save(turist);
-    }
+                turistService.zgjidhBuxhet(turist, 200.0, 800.0);
 
-    @Test
-    void zgjidhBuxhet_success() {
-        when(turistRep.save(any(Turist.class)))
-                .thenReturn(turist);
-
-        turistService.zgjidhBuxhet(turist, 200.0, 800.0);
-
-        assertEquals(200.0, turist.getBuxhetiMin());
-        assertEquals(800.0, turist.getBuxhetiMax());
-        verify(turistRep, times(1)).save(turist);
-    }
+                assertEquals(200.0, turist.getBuxhetiMin());
+                assertEquals(800.0, turist.getBuxhetiMax());
+                verify(turistRep, times(1)).save(turist);
+        }
 }
